@@ -1,0 +1,101 @@
+To verify the boot mode, check the UEFI bitness:
+
+# cat /sys/firmware/efi/fw_platform_size
+
+To get an interactive prompt do:
+
+$ iwctl
+
+[iwd]# device list
+
+Then, to initiate a scan for networks (note that this command will not output anything):
+
+[iwd]# station name scan
+
+You can then list all available networks:
+
+[iwd]# station name get-networks
+
+Finally, to connect to a network:
+
+[iwd]# station name connect SSID
+
+If network is hidden:
+
+[iwd]# station name connect-hidden SSID
+
+In the live environment systemd-timesyncd is enabled by default and time will be synced automatically once a connection to the internet is established.
+
+Use timedatectl(1) to ensure the system clock is synchronized:
+
+# timedatectl set-timezone Europe/Moscow
+
+
+fdisk and etc
+
+
+mount --mkdir /dev/....
+swapon /dev/...
+
+
+# pacstrap -K /mnt base linux linux-firmware
+
+# genfstab -U /mnt >> /mnt/etc/fstab
+# arch-chroot /mnt
+# ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+# hwclock --systohc
+timedatectl set-timezone Europe/Moscow
+timedatectl set-ntp true
+
+Edit /etc/locale.gen and uncomment en_US.UTF-8 UTF-8 and other needed UTF-8 locales. Generate the locales by running:
+
+# locale-gen
+
+Create the locale.conf(5) file, and set the LANG variable accordingly:
+
+/etc/locale.conf
+
+LANG=en_US.UTF-8
+
+Create the hostname file:
+
+/etc/hostname
+
+yourhostname
+Creating a new initramfs is usually not required, because mkinitcpio was run on installation of the kernel package with pacstrap.
+
+For LVM, system encryption or RAID, modify mkinitcpio.conf(5) and recreate the initramfs image:
+
+# mkinitcpio -P
+
+Set the root password:
+
+# passwd
+
+useradd -m [username]
+ passwd [username]
+ usermod -aG wheel,audio,video,optical,storage [username]
+ userdbctl groups-of-user [username]
+
+Затем мы устанавливаем sudo. Да-да, по-умолчанию его здесь нет:
+
+pacman -S sudo
+Настройка Vim
+
+Потом мы химичим с Vim. Сначала мы делаем его редактором по-умолчанию (да, это вводим просто в терминал):
+
+EDITIOR=vim
+
+Затем вводим visudo и в открывшемся файле для того. чтобы мы могли с обычного аккаунта запускать команды, раскомментируем следующую строчку:
+
+%wheel ALL=(ALL) ALL
+
+pacman -S grub efibootmgr
+
+mkdir /boot/EFI
+ mount /dev/sdxY /boot/EFI
+
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck /dev/sdx
+grub-mkconfig -o /boot/grub/grub.cfg
+
+sudo pacman -S dhcpcd iwd
