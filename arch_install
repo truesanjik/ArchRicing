@@ -99,3 +99,35 @@ grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck /dev/sdx
 grub-mkconfig -o /boot/grub/grub.cfg
 
 sudo pacman -S dhcpcd iwd
+
+./install.sh
+cd HyDE/Scripts 
+git clone https://github.com/HyDE-Project/HyDE ~/HyDEtimedatectl set-ntp true
+timedatectl
+timedatectl set-timezone Europe/Moscow
+sudo pacman -S git base-devel
+pacman -S git base-devel
+sudo systemctl start iwd dhcpcd
+sudo systemctl enable iwd dhcpcd
+
+sudo systemctl stop dhcpcd
+sudo systemctl stop iwd
+sudo systemctl restart Network.Manager
+
+
+
+sudo pacman -S pipewire pipewire-pulse pipewire-alsa
+sudo pacman -S alsa-plugins alsa-utils
+sudo pacman -S alsa-utils sof-firmware
+sudo modprobe snd_hda_intel
+sudo modprobe snd_hda_codec_realtek
+
+sudo pacman -S alsa-utils sof-firmware
+sudo modprobe snd_hda_intel
+sudo modprobe snd_hda_codec_realtek
+
+
+./install.sh
+vim README.md
+cd Hyde-cli/
+git clone https://github.com/HyDE-Project/Hyde-cli
