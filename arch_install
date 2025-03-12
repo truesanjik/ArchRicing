@@ -104,7 +104,10 @@ sudo pacman -S dhcpcd iwd
 
 ./install.sh
 cd HyDE/Scripts 
-git clone https://github.com/HyDE-Project/HyDE ~/HyDEtimedatectl set-ntp true
+git clone https://github.com/HyDE-Project/HyDE ~/HyDE
+
+
+timedatectl set-ntp true
 timedatectl
 timedatectl set-timezone Europe/Moscow
 sudo pacman -S git base-devel
