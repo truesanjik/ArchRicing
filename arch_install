@@ -136,3 +136,81 @@ sudo modprobe snd_hda_codec_realtek
 vim README.md
 cd Hyde-cli/
 git clone https://github.com/HyDE-Project/Hyde-cli
+
+To install `yay` (Yet Another Yogurt) on an Arch Linux system, follow these steps. `yay` is a popular AUR (Arch User Repository) helper that allows you to easily install packages from the AUR.
+
+---
+
+### **Step 1: Update the System**
+Before proceeding, ensure your system is up to date:
+```bash
+sudo pacman -Syu
+```
+
+---
+
+### **Step 2: Install Required Dependencies**
+`yay` requires `base-devel` and `git` to be installed. These packages provide essential tools for building software from source.
+
+```bash
+sudo pacman -S base-devel git
+```
+
+---
+
+### **Step 3: Clone the `yay` Repository**
+Clone the `yay` repository from GitHub to your local machine:
+
+```bash
+git clone https://aur.archlinux.org/yay.git
+```
+
+---
+
+### **Step 4: Build and Install `yay`**
+Navigate to the cloned `yay` directory and build/install the package using `makepkg`:
+
+```bash
+cd yay
+makepkg -si
+```
+
+- `-s`: Automatically resolves and installs dependencies.
+- `-i`: Installs the package after building.
+
+---
+
+### **Step 5: Verify Installation**
+Once the installation is complete, verify that `yay` is installed and working:
+
+```bash
+yay --version
+```
+
+---
+
+### **Step 6: Use `yay` to Install AUR Packages**
+Now you can use `yay` to search for and install packages from the AUR. For example:
+
+```bash
+yay -S package-name
+```
+
+---
+
+### **Optional: Update AUR Packages**
+To update all installed AUR packages along with official repositories, run:
+
+```bash
+yay -Syu
+```
+
+---
+
+### **Troubleshooting**
+- If you encounter permission issues during installation, ensure you are not running the commands as the root user. Use a regular user with sudo privileges.
+- If `makepkg` fails, check for missing dependencies and ensure `base-devel` is installed.
+
+---
+
+That's it! You now have `yay` installed on your Arch Linux system and can easily manage AUR packages.
