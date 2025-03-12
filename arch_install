@@ -65,7 +65,9 @@ yourhostname
 Creating a new initramfs is usually not required, because mkinitcpio was run on installation of the kernel package with pacstrap.
 
 For LVM, system encryption or RAID, modify mkinitcpio.conf(5) and recreate the initramfs image:
+/etc/mkinitcpio.conf
 
+HOOKS=(base udev ... block lvm2 filesystems)
 # mkinitcpio -P
 
 Set the root password:
